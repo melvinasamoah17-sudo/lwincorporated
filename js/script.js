@@ -122,6 +122,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initScrubGalleries();
 
+  /* ---------- Hero image slider (homepage only) ---------- */
+  (function initHeroSlider() {
+    var slider = document.getElementById('heroSlider');
+    if (!slider) return;
+
+    var slides = slider.querySelectorAll('.hs-slide');
+    var pageButtons = slider.querySelectorAll('.hs-page');
+    var prevBtn = document.getElementById('heroPrev');
+    var nextBtn = document.getElementById('heroNext');
+    var current = 0;
+    var timer = null;
+    var AUTOPLAY_MS = 5500;
+
+    function goTo(index) {
+      index = (index + slides.length) % slides.length;
+      slides.forEach(function (s, i) { s.classList.toggle('is-active', i === index); });
+      pageButtons.forEach(function (b, i) { b.classList.toggle('is-active', i === index); });
+      current = index;
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAutoplay() {
+      stopAutoplay();
+      timer = window.setInterval(next, AUTOPLAY_MS);
+    }
+    function stopAutoplay() {
+      if (timer) window.clearInterval(timer);
+    }
+
+    pageButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        goTo(parseInt(btn.getAttribute('data-index'), 10) || 0);
+        startAutoplay();
+      });
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () { next(); startAutoplay(); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { prev(); startAutoplay(); });
+
+    slider.addEventListener('mouseenter', stopAutoplay);
+    slider.addEventListener('mouseleave', startAutoplay);
+
+    goTo(0);
+    startAutoplay();
+  })();
+
+  /* ---------- Sitewide scroll-reveal ---------- */
+  (function initScrollReveal() {
+    var selector = [
+      '.section-head', '.about-image', '.about-copy',
+      '.wing', '.value-card', '.join-copy', '.join-event',
+      '.ad-card', '.event-card', '.site-form', '.info-card',
+      '.voice-card', '.wing-detail-hero'
+    ].join(', ');
+
+    var els = document.querySelectorAll(selector);
+    if (!els.length) return;
+
+    els.forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (Math.min(i % 5, 5) * 70) + 'ms';
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    els.forEach(function (el) { observer.observe(el); });
+  })();
+
   /* ---------- Animated stat counters ---------- */
   var statNumbers = document.querySelectorAll('.stat-number');
 
@@ -272,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Newsletter form (front-end only) ---------- */
+  /* ---------- Newsletter form ---------- */
   var newsletterForm = document.getElementById('newsletterForm');
   var newsletterNote = document.getElementById('newsletterNote');
 
@@ -280,27 +361,96 @@ document.addEventListener('DOMContentLoaded', function () {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var emailInput = document.getElementById('newsletterEmail');
-      if (emailInput && emailInput.value) {
-        newsletterNote.textContent = 'Thanks! We\u2019ll be in touch at ' + emailInput.value + '.';
-        newsletterForm.reset();
-      }
+      if (!emailInput || !emailInput.value) return;
+
+      var params = {
+        form_type: 'Newsletter Signup',
+        name: '',
+        contact: emailInput.value,
+        subject: 'New newsletter signup',
+        message: 'Please add this address to the mailing list: ' + emailInput.value
+      };
+
+      submitViaEmailJS(params, newsletterForm, newsletterNote,
+        'Thanks! We\u2019ll be in touch at ' + emailInput.value + '.');
     });
   }
 
-  /* ---------- Other front-end-only forms (member, booking, contact) ---------- */
-  function wireSimpleForm(formId, noteId, message) {
+  /* ---------- Member, booking and contact forms ---------- */
+  function submitViaEmailJS(params, form, note, successMessage) {
+    if (!EmailJSBridge.isConfigured()) {
+      note.textContent = successMessage;
+      form.reset();
+      return;
+    }
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var originalLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending\u2026'; }
+    note.textContent = '';
+
+    EmailJSBridge.send(params).then(function () {
+      note.textContent = successMessage;
+      form.reset();
+    }).catch(function (err) {
+      note.textContent = 'Something went wrong sending that \u2014 please try again or email us directly.';
+      if (window.console) console.error('EmailJS error:', err);
+    }).finally(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
+    });
+  }
+
+  function wireEmailForm(formId, noteId, successMessage, buildParams) {
     var form = document.getElementById(formId);
     var note = document.getElementById(noteId);
     if (!form || !note) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      note.textContent = message;
-      form.reset();
+      submitViaEmailJS(buildParams(form), form, note, successMessage);
     });
   }
 
-  wireSimpleForm('memberForm', 'memberFormNote', 'Thanks for your interest! We\u2019ll reach out soon about next steps.');
-  wireSimpleForm('bookingForm', 'bookingFormNote', 'Thanks! Your booking request has been received \u2014 we\u2019ll follow up shortly.');
-  wireSimpleForm('contactForm', 'contactFormNote', 'Thanks for reaching out! We\u2019ll get back to you soon.');
+  wireEmailForm('memberForm', 'memberFormNote',
+    'Thanks for your interest! We\u2019ll reach out soon about next steps.',
+    function (form) {
+      var wing = form.querySelector('#mWing').value;
+      return {
+        form_type: 'New Member Interest',
+        name: form.querySelector('#mFullName').value,
+        contact: form.querySelector('#mContact').value,
+        subject: 'New member interest: ' + wing,
+        message: 'School: ' + form.querySelector('#mSchool').value
+          + '\nWing: ' + wing
+          + '\nMessage: ' + form.querySelector('#mMessage').value
+      };
+    });
+
+  wireEmailForm('bookingForm', 'bookingFormNote',
+    'Thanks! Your booking request has been received \u2014 we\u2019ll follow up shortly.',
+    function (form) {
+      var org = form.querySelector('#bOrg').value;
+      return {
+        form_type: 'Performance Booking Request',
+        name: form.querySelector('#bContactPerson').value,
+        contact: form.querySelector('#bEmail').value,
+        subject: 'Booking request from ' + org,
+        message: 'Organisation: ' + org
+          + '\nPreferred date: ' + form.querySelector('#bDate').value
+          + '\nDetails: ' + form.querySelector('#bDetails').value
+      };
+    });
+
+  wireEmailForm('contactForm', 'contactFormNote',
+    'Thanks for reaching out! We\u2019ll get back to you soon.',
+    function (form) {
+      var subject = form.querySelector('#cSubject').value;
+      return {
+        form_type: 'Contact Form',
+        name: form.querySelector('#cName').value,
+        contact: form.querySelector('#cEmail').value,
+        subject: subject || 'Website contact form',
+        message: form.querySelector('#cMessage').value
+      };
+    });
 
 });
