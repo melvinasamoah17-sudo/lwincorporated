@@ -24,7 +24,7 @@
 
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -32,7 +32,6 @@ body {
   background: var(--white);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -363,6 +362,81 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 0.9rem;
   text-align: center;
   padding: 1.5em;
+}
+
+/* ---------- Music page: Apple Music + YouTube embeds ---------- */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2em;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.music-embed {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 18px 40px -22px rgba(11,31,58,0.35);
+}
+.music-embed iframe { width: 100%; border: none; display: block; }
+.music-embed-caption {
+  padding: 1em 1.3em 1.3em;
+  font-size: 0.92rem;
+  color: rgba(11,31,58,0.7);
+}
+.music-embed-caption strong { color: var(--ink); }
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.8em;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 18px 40px -22px rgba(11,31,58,0.35);
+  background: var(--ink);
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ---------- Photo collage (tilted overlapping frames) ---------- */
+.collage {
+  position: relative;
+  max-width: 900px;
+  margin: 3em auto 2em;
+  height: 380px;
+}
+.collage-frame {
+  position: absolute;
+  border: 8px solid var(--white);
+  border-radius: 4px;
+  box-shadow: 0 20px 45px -18px rgba(11,31,58,0.5);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.collage-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.collage-frame:hover { transform: scale(1.04) rotate(0deg) !important; box-shadow: 0 26px 55px -16px rgba(11,31,58,0.55); z-index: 5; }
+
+.collage-frame.c1 { width: 34%; left: 2%; top: 12%; height: 60%; transform: rotate(-8deg); z-index: 2; }
+.collage-frame.c2 { width: 38%; left: 32%; top: 0; height: 78%; transform: rotate(3deg); z-index: 3; }
+.collage-frame.c3 { width: 34%; right: 2%; top: 16%; height: 62%; transform: rotate(9deg); z-index: 1; }
+
+@media (max-width: 780px) {
+  .collage { height: 320px; }
+  .collage-frame.c1 { width: 44%; left: 0; top: 10%; height: 50%; }
+  .collage-frame.c2 { width: 48%; left: 26%; top: 0; height: 66%; }
+  .collage-frame.c3 { width: 44%; right: 0; top: 20%; height: 50%; }
 }
 
 /* ---------- Event cards (join page) ---------- */
