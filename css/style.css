@@ -433,6 +433,7 @@ button { font-family: inherit; cursor: pointer; }
 .collage-frame.c3 { width: 34%; right: 2%; top: 16%; height: 62%; transform: rotate(9deg); z-index: 1; }
 
 @media (max-width: 780px) {
+  .brand-tagline { display: none; }
   .collage { height: 320px; }
   .collage-frame.c1 { width: 44%; left: 0; top: 10%; height: 50%; }
   .collage-frame.c2 { width: 48%; left: 26%; top: 0; height: 66%; }
@@ -488,15 +489,23 @@ button { font-family: inherit; cursor: pointer; }
   align-items: center;
   gap: 0.6em;
 }
-.brand-mark { width: 44px; height: 44px; object-fit: contain; }
+.brand-mark { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; }
 .brand-name {
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-weight: 800;
   font-size: 1rem;
   line-height: 1.1;
   color: var(--ink);
 }
 .brand-name em { font-style: normal; color: var(--blue); }
+.brand-tagline {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  letter-spacing: 0.01em;
+  margin-top: 0.15em;
+}
 
 .main-nav {
   display: flex;
