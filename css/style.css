@@ -270,6 +270,22 @@ button { font-family: inherit; cursor: pointer; }
 }
 .dancers-page .wing-list li::before { background: var(--gold-deep); }
 
+/* ---------- Promo / ad card (poster spotlight) ---------- */
+.ad-card {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  gap: 3em;
+  align-items: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.ad-media img {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: 0 22px 48px -20px rgba(11,31,58,0.45);
+}
+.ad-copy h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+
 .strip-gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1041,6 +1057,8 @@ button { font-family: inherit; cursor: pointer; }
   .join-inner { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .wing-detail-hero { grid-template-columns: 1fr; }
+  .ad-card { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ad-media img { max-width: 260px; }
   .strip-gallery { grid-template-columns: repeat(2, 1fr); }
   .voices-grid-page { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
