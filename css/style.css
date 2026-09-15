@@ -1035,6 +1035,7 @@ button { font-family: inherit; cursor: pointer; }
 .social-float-icons a.ig { background: #C13584; }
 .social-float-icons a.wa { background: #25D366; }
 .social-float-icons a.yt { background: #FF0000; }
+.social-float-icons a.tt { background: #010101; }
 .social-float-icons a.x  { background: #0B1F3A; }
 .social-float-icons a:hover { filter: brightness(1.1); }
 .social-float-icons a svg { width: 19px; height: 19px; }
