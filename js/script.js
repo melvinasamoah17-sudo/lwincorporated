@@ -367,6 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form_type: 'Newsletter Signup',
         name: '',
         contact: emailInput.value,
+        reply_to: emailInput.value,
         subject: 'New newsletter signup',
         message: 'Please add this address to the mailing list: ' + emailInput.value
       };
@@ -392,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
     EmailJSBridge.send(params).then(function () {
       note.textContent = successMessage;
       form.reset();
+      EmailJSBridge.sendAutoReply(params);
     }).catch(function (err) {
       note.textContent = 'Something went wrong sending that \u2014 please try again or email us directly.';
       if (window.console) console.error('EmailJS error:', err);
@@ -414,10 +416,12 @@ document.addEventListener('DOMContentLoaded', function () {
     'Thanks for your interest! We\u2019ll reach out soon about next steps.',
     function (form) {
       var wing = form.querySelector('#mWing').value;
+      var contact = form.querySelector('#mContact').value;
       return {
         form_type: 'New Member Interest',
         name: form.querySelector('#mFullName').value,
-        contact: form.querySelector('#mContact').value,
+        contact: contact,
+        reply_to: contact,
         subject: 'New member interest: ' + wing,
         message: 'School: ' + form.querySelector('#mSchool').value
           + '\nWing: ' + wing
@@ -429,10 +433,12 @@ document.addEventListener('DOMContentLoaded', function () {
     'Thanks! Your booking request has been received \u2014 we\u2019ll follow up shortly.',
     function (form) {
       var org = form.querySelector('#bOrg').value;
+      var contact = form.querySelector('#bEmail').value;
       return {
         form_type: 'Performance Booking Request',
         name: form.querySelector('#bContactPerson').value,
-        contact: form.querySelector('#bEmail').value,
+        contact: contact,
+        reply_to: contact,
         subject: 'Booking request from ' + org,
         message: 'Organisation: ' + org
           + '\nPreferred date: ' + form.querySelector('#bDate').value
@@ -444,10 +450,12 @@ document.addEventListener('DOMContentLoaded', function () {
     'Thanks for reaching out! We\u2019ll get back to you soon.',
     function (form) {
       var subject = form.querySelector('#cSubject').value;
+      var contact = form.querySelector('#cEmail').value;
       return {
         form_type: 'Contact Form',
         name: form.querySelector('#cName').value,
-        contact: form.querySelector('#cEmail').value,
+        contact: contact,
+        reply_to: contact,
         subject: subject || 'Website contact form',
         message: form.querySelector('#cMessage').value
       };
