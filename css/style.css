@@ -10,6 +10,9 @@
   --white: #FFFFFF;
   --gold: #F4B740;
   --gold-deep: #DA9A1F;
+  --green: #1F7A4D;
+  --green-bright: #34B36A;
+  --pink: #E63E96;
 
   --font-display: "Baloo 2", "Segoe UI", sans-serif;
   --font-body: "Work Sans", "Segoe UI", sans-serif;
@@ -604,6 +607,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 .tag-blue { background: rgba(30,95,216,0.12); color: var(--blue); }
 .tag-gold { background: rgba(244,183,64,0.22); color: var(--gold-deep); }
+.tag-green { background: rgba(31,122,77,0.12); color: var(--green); }
+.tag-pink { background: rgba(230,62,150,0.12); color: var(--pink); }
 
 .wing-copy h3 { font-size: 1.4rem; }
 
@@ -644,6 +649,10 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--gold);
   font-weight: 600;
 }
+.voice-card:nth-child(4n+1) footer { color: var(--gold); }
+.voice-card:nth-child(4n+2) footer { color: var(--pink); }
+.voice-card:nth-child(4n+3) footer { color: #6FA8FF; }
+.voice-card:nth-child(4n+4) footer { color: var(--green-bright); }
 .voices-controls {
   display: flex;
   justify-content: center;
@@ -935,6 +944,17 @@ button { font-family: inherit; cursor: pointer; }
   .social-float-icons a svg { width: 16px; height: 16px; }
   .social-float-toggle { width: 18px; height: 38px; }
 }
+
+/* ---------- Brand stripe (from the LWI poster banding) ---------- */
+.brand-stripe {
+  display: flex;
+  flex-direction: column;
+  height: 10px;
+}
+.brand-stripe span { flex: 1; }
+.brand-stripe .s1 { background: var(--green); }
+.brand-stripe .s2 { background: var(--pink); }
+.brand-stripe .s3 { background: var(--gold); }
 
 /* ---------- Back to top ---------- */
 .back-to-top {
