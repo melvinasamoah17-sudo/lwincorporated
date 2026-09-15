@@ -177,31 +177,59 @@ document.addEventListener('DOMContentLoaded', function () {
   if (voicesPrev) voicesPrev.addEventListener('click', function () { scrollVoices(-1); });
   if (voicesNext) voicesNext.addEventListener('click', function () { scrollVoices(1); });
 
-  /* ---------- Gallery lightbox ---------- */
+  /* ---------- Gallery lightbox (images + videos) ---------- */
   var galleryItems = document.querySelectorAll('.gallery-item');
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxVideo = document.getElementById('lightboxVideo');
   var lightboxClose = document.getElementById('lightboxClose');
 
-  function openLightbox(src, alt) {
+  function openLightboxImage(src, alt) {
     if (!lightbox || !lightboxImg) return;
+    if (lightboxVideo) {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load();
+      lightboxVideo.hidden = true;
+    }
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
+    lightboxImg.hidden = false;
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
+  }
+
+  function openLightboxVideo(src) {
+    if (!lightbox || !lightboxVideo) return;
+    lightboxImg.hidden = true;
+    lightboxVideo.hidden = false;
+    lightboxVideo.src = src;
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lightboxVideo.play().catch(function () { /* autoplay may be blocked; controls remain available */ });
   }
 
   function closeLightbox() {
     if (!lightbox) return;
     lightbox.hidden = true;
     document.body.style.overflow = '';
+    if (lightboxVideo) {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load();
+    }
   }
 
   galleryItems.forEach(function (item) {
     item.addEventListener('click', function () {
+      var videoSrc = item.getAttribute('data-video');
+      if (videoSrc) {
+        openLightboxVideo(videoSrc);
+        return;
+      }
       var full = item.getAttribute('data-full');
       var img = item.querySelector('img');
-      openLightbox(full, img ? img.alt : '');
+      openLightboxImage(full, img ? img.alt : '');
     });
   });
 
