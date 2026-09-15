@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (lightboxVideo) {
       lightboxVideo.pause();
       lightboxVideo.removeAttribute('src');
+      lightboxVideo.removeAttribute('poster');
       lightboxVideo.load();
       lightboxVideo.hidden = true;
     }
@@ -199,10 +200,15 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.overflow = 'hidden';
   }
 
-  function openLightboxVideo(src) {
+  function openLightboxVideo(src, poster) {
     if (!lightbox || !lightboxVideo) return;
     lightboxImg.hidden = true;
     lightboxVideo.hidden = false;
+    if (poster) {
+      lightboxVideo.setAttribute('poster', poster);
+    } else {
+      lightboxVideo.removeAttribute('poster');
+    }
     lightboxVideo.src = src;
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
@@ -216,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (lightboxVideo) {
       lightboxVideo.pause();
       lightboxVideo.removeAttribute('src');
+      lightboxVideo.removeAttribute('poster');
       lightboxVideo.load();
     }
   }
@@ -224,7 +231,8 @@ document.addEventListener('DOMContentLoaded', function () {
     item.addEventListener('click', function () {
       var videoSrc = item.getAttribute('data-video');
       if (videoSrc) {
-        openLightboxVideo(videoSrc);
+        var posterImg = item.querySelector('img');
+        openLightboxVideo(videoSrc, posterImg ? posterImg.src : '');
         return;
       }
       var full = item.getAttribute('data-full');
