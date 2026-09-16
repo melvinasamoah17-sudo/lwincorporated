@@ -243,6 +243,64 @@
     </div>
   </section>
 
+  <section class="content-section tint">
+    <div class="section-head">
+      <p class="kicker">Our Reach</p>
+      <h2>Schools We&rsquo;ve Visited</h2>
+    </div>
+    <div class="schools-map-wrap">
+      <div id="schoolsMap"></div>
+      <div class="schools-list-card">
+        <h3>Schools visited</h3>
+        <ul>
+          <li>Accra Academy</li>
+          <li>Nifa SHS</li>
+          <li>Benkum SHS</li>
+          <li>Accra Girls</li>
+          <li>Accra High</li>
+          <li>Labone SHS</li>
+          <li>Ghanata SHS</li>
+          <li>Nungua SHS</li>
+          <li>St John&rsquo;s Grammar</li>
+          <li>Wesley Grammar</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    (function () {
+      var schools = [
+        ["Accra Academy", 5.5715232, -0.2438172],
+        ["Nifa SHS", 6.027203, -0.0780929],
+        ["Benkum SHS", 5.9422848, -0.0898632],
+        ["Accra Girls SHS", 5.5969834, -0.1929681],
+        ["Accra High School", 5.5675623, -0.2000479],
+        ["Labone SHS", 5.5644744, -0.1712557],
+        ["Ghanata SHS", 5.8858378, -0.1073621],
+        ["Nungua SHS", 5.6065, -0.0773],
+        ["St John's Grammar SHS", 5.6386688, -0.2451259],
+        ["Wesley Grammar SHS", 5.5700027, -0.2605206]
+      ];
+      var mapEl = document.getElementById('schoolsMap');
+      if (!mapEl || typeof L === 'undefined') return;
+      var map = L.map('schoolsMap');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 18
+      }).addTo(map);
+      var markers = [];
+      schools.forEach(function (s) {
+        var m = L.marker([s[1], s[2]]).addTo(map).bindPopup('<strong>' + s[0] + '</strong>');
+        markers.push(m);
+      });
+      var group = L.featureGroup(markers);
+      map.fitBounds(group.getBounds().pad(0.15));
+    })();
+  </script>
+
   <section class="gallery" id="gallery">
     <div class="section-head">
       <p class="kicker">Gallery</p>
