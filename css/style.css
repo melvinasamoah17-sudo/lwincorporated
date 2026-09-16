@@ -435,6 +435,47 @@ button { font-family: inherit; cursor: pointer; }
   border: none;
 }
 
+/* ---------- Schools visited map ---------- */
+.schools-map-wrap {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5em;
+  align-items: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+#schoolsMap {
+  width: 100%;
+  height: 440px;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 45px -20px rgba(11,31,58,0.4);
+}
+.schools-list-card {
+  background: var(--sky);
+  border-radius: var(--radius);
+  padding: 2em 2.2em;
+}
+.schools-list-card h3 { font-size: 1.1rem; margin-bottom: 0.8em; }
+.schools-list-card ul { margin: 0; padding: 0; }
+.schools-list-card li {
+  list-style: none;
+  padding: 0.55em 0 0.55em 1.6em;
+  border-bottom: 1px solid rgba(11,31,58,0.08);
+  position: relative;
+  font-size: 0.95rem;
+}
+.schools-list-card li:last-child { border-bottom: none; }
+.schools-list-card li::before {
+  content: "\1F4CD";
+  position: absolute;
+  left: 0; top: 0.5em;
+  font-size: 0.85em;
+}
+@media (max-width: 960px) {
+  .schools-map-wrap { grid-template-columns: 1fr; }
+  #schoolsMap { height: 340px; }
+}
+
 /* ---------- Photo collage (tilted overlapping frames) ---------- */
 .collage {
   position: relative;
