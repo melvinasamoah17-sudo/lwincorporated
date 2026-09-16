@@ -87,6 +87,7 @@ button { font-family: inherit; cursor: pointer; }
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.98rem;
+  white-space: nowrap;
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
   border: 2px solid transparent;
 }
@@ -142,6 +143,7 @@ button { font-family: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
+  white-space: nowrap;
 }
 .dropdown-toggle .caret {
   width: 8px; height: 8px;
@@ -504,16 +506,18 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 600;
   color: var(--gold-deep);
   letter-spacing: 0.01em;
+  line-height: 1.35;
   margin-top: 0.15em;
 }
 
 .main-nav {
   display: flex;
-  gap: 1.8em;
+  flex-wrap: wrap;
+  gap: 1.2em 1.8em;
   font-weight: 500;
   font-size: 0.96rem;
 }
-.main-nav a { position: relative; padding: 0.3em 0; }
+.main-nav a { position: relative; padding: 0.3em 0; white-space: nowrap; }
 .main-nav a::after {
   content: "";
   position: absolute;
@@ -1286,7 +1290,7 @@ button { font-family: inherit; cursor: pointer; }
   .form-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 1100px) {
   .main-nav {
     position: absolute;
     top: 100%; left: 0; right: 0;
