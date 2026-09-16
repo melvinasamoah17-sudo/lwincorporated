@@ -283,6 +283,21 @@ document.addEventListener('DOMContentLoaded', function () {
   if (voicesPrev) voicesPrev.addEventListener('click', function () { scrollVoices(-1); });
   if (voicesNext) voicesNext.addEventListener('click', function () { scrollVoices(1); });
 
+  /* ---------- Events carousel controls ---------- */
+  var eventsCarousel = document.getElementById('eventsCarousel');
+  var eventsPrev = document.getElementById('eventsPrev');
+  var eventsNext = document.getElementById('eventsNext');
+
+  function scrollEvents(direction) {
+    if (!eventsCarousel) return;
+    var card = eventsCarousel.querySelector('.event-card-poster');
+    var scrollAmount = card ? card.getBoundingClientRect().width + 24 : 300;
+    eventsCarousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+
+  if (eventsPrev) eventsPrev.addEventListener('click', function () { scrollEvents(-1); });
+  if (eventsNext) eventsNext.addEventListener('click', function () { scrollEvents(1); });
+
   /* ---------- Gallery lightbox (images + videos) ---------- */
   var galleryItems = document.querySelectorAll('.gallery-item');
   var lightbox = document.getElementById('lightbox');
