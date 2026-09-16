@@ -535,7 +535,6 @@ button { font-family: inherit; cursor: pointer; }
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
   border: none;
   padding: 0;
 }
