@@ -157,9 +157,20 @@ document.addEventListener('DOMContentLoaded', function () {
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1); }
 
+    // A video marked data-advance-on-end plays to the finish, then the slider moves on.
+    slides.forEach(function (s) {
+      var v = s.querySelector('video[data-advance-on-end]');
+      if (v) v.addEventListener('ended', function () { if (s.classList.contains('is-active')) { next(); } });
+    });
+
+    function holdingOnVideo() {
+      var v = slides[current] && slides[current].querySelector('video[data-advance-on-end]');
+      return !!(v && !v.ended);
+    }
+
     function startAutoplay() {
       stopAutoplay();
-      timer = window.setInterval(next, AUTOPLAY_MS);
+      timer = window.setInterval(function () { if (!holdingOnVideo()) next(); }, AUTOPLAY_MS);
     }
     function stopAutoplay() {
       if (timer) window.clearInterval(timer);
@@ -180,18 +191,19 @@ document.addEventListener('DOMContentLoaded', function () {
     goTo(0);
     startAutoplay();
 
-    var heroVideo = document.getElementById('heroVideo');
-    var soundToggle = document.getElementById('heroSoundToggle');
-    if (heroVideo && soundToggle) {
-      soundToggle.addEventListener('click', function () {
-        heroVideo.muted = !heroVideo.muted;
-        var isUnmuted = !heroVideo.muted;
-        soundToggle.setAttribute('aria-pressed', isUnmuted ? 'true' : 'false');
-        soundToggle.setAttribute('aria-label', isUnmuted ? 'Turn sound off' : 'Turn sound on');
-        soundToggle.querySelector('.hs-sound-icon').innerHTML = isUnmuted ? '&#128266;' : '&#128264;';
-        heroVideo.play().catch(function () { /* ignore */ });
+    slides.forEach(function (slide) {
+      var video = slide.querySelector('video');
+      var toggle = slide.querySelector('.hs-sound-toggle');
+      if (!video || !toggle) return;
+      toggle.addEventListener('click', function () {
+        video.muted = !video.muted;
+        var isUnmuted = !video.muted;
+        toggle.setAttribute('aria-pressed', isUnmuted ? 'true' : 'false');
+        toggle.setAttribute('aria-label', isUnmuted ? 'Turn sound off' : 'Turn sound on');
+        toggle.querySelector('.hs-sound-icon').innerHTML = isUnmuted ? '&#128266;' : '&#128264;';
+        video.play().catch(function () { /* ignore */ });
       });
-    }
+    });
   })();
 
   /* ---------- Sitewide scroll-reveal ---------- */
