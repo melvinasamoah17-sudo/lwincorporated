@@ -1571,3 +1571,9 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 760px) {
   .news-videos { grid-template-columns: 1fr; }
 }
+
+/* School recap navigation */
+.recap-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.6em;margin:2em 0 0}
+.recap-nav a{padding:.5em 1.1em;border-radius:999px;background:var(--sky);color:var(--blue-deep);font-weight:600;font-size:.9rem;text-decoration:none;border:1px solid rgba(30,95,216,.25);transition:var(--transition)}
+.recap-nav a:hover{background:var(--blue);color:var(--white)}
+.recap-heading{scroll-margin-top:90px}
