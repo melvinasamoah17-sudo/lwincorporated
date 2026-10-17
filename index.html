@@ -76,10 +76,10 @@
     </div>
     <div class="hs-track">
       <div class="hs-slide is-active">
-        <video class="hs-video" id="heroVideo" autoplay muted loop playsinline poster="assets/video/New Video.mp4">
-          <source src="assets/video/New Video.mp4" type="video/mp4">
+        <video class="hs-video" id="heroVideo" data-advance-on-end autoplay muted playsinline preload="auto">
+          <source src="assets/video/New%20Video.mp4" type="video/mp4">
         </video>
-        <button class="hs-sound-toggle" id="heroSoundToggle" aria-label="Turn sound on" aria-pressed="false">
+        <button class="hs-sound-toggle" aria-label="Turn sound on" aria-pressed="false">
           <span class="hs-sound-icon">&#128264;</span>
         </button>
         <div class="hs-caption">
@@ -87,12 +87,11 @@
           <span class="hs-caption-title">The Living Waters Singers - If There Were Never Any Heaven (Music Video)</span>
         </div>
       </div>
-    <div class="hs-track">
-      <div class="hs-slide is-active">
-        <video class="hs-video" id="heroVideo" autoplay muted loop playsinline poster="assets/img/hero.jpg">
+      <div class="hs-slide">
+        <video class="hs-video" autoplay muted loop playsinline poster="assets/img/hero.jpg">
           <source src="assets/video/LWI.mp4" type="video/mp4">
         </video>
-        <button class="hs-sound-toggle" id="heroSoundToggle" aria-label="Turn sound on" aria-pressed="false">
+        <button class="hs-sound-toggle" aria-label="Turn sound on" aria-pressed="false">
           <span class="hs-sound-icon">&#128264;</span>
         </button>
         <div class="hs-caption">
@@ -140,6 +139,7 @@
       <button class="hs-page" data-index="2">03</button>
       <button class="hs-page" data-index="3">04</button>
       <button class="hs-page" data-index="4">05</button>
+      <button class="hs-page" data-index="5">06</button>
     </div>
     <svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,48 C240,90 480,0 720,24 C960,48 1200,90 1440,42 L1440,90 L0,90 Z"></path>
@@ -158,6 +158,29 @@
       <div class="hero-actions">
         <a href="/join" class="btn btn-gold">Join A Club</a>
         <a href="/gallery" class="btn btn-outline-navy">Watch A Highlight</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="news" id="news">
+    <div class="news-inner">
+      <div class="news-copy">
+        <span class="news-badge">New Release</span>
+        <p class="kicker">Latest News</p>
+        <h2>New Music Videos Are Out Now</h2>
+        <p>Living Waters has released fresh music, and the videos are live, including &ldquo;If There Were Never Any Heaven&rdquo; from the Living Waters Singers. Press play, share it with a friend, and let the sound carry the Gospel further.</p>
+      </div>
+      <div class="news-videos">
+        <div class="news-video">
+          <iframe src="https://www.youtube.com/embed/CleD4ResYM8" title="Living Waters new music video 1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="news-video">
+          <iframe src="https://www.youtube.com/embed/nvT1NcQstrI" title="Living Waters new music video 2" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="news-actions">
+        <a href="/music#watch" class="btn btn-gold">More Videos</a>
+        <a href="/music" class="btn btn-outline">Stream The Music</a>
       </div>
     </div>
   </section>
