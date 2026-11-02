@@ -1162,6 +1162,14 @@ button { font-family: inherit; cursor: pointer; }
   padding-top: 2.2em;
   border-top: 1px solid rgba(11,31,58,0.1);
 }
+.recap-group-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 2.5em 0 0;
+  padding-top: 1.6em;
+  border-top: 1px solid rgba(11,31,58,0.1);
+}
+.recap-group-title + .recap-heading { margin-top: 1em; padding-top: 0; border-top: 0; }
 .recap-heading h3 { font-size: 1.2rem; margin: 0 0 0.2em; }
 .recap-heading p { margin: 0; color: rgba(11,31,58,0.65); font-size: 0.92rem; }
 
