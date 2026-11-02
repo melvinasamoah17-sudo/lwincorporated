@@ -204,6 +204,29 @@ document.addEventListener('DOMContentLoaded', function () {
         video.play().catch(function () { /* ignore */ });
       });
     });
+
+    // A video marked data-chapters ("seconds|title;...") swaps its caption title as each part plays.
+    slides.forEach(function (slide) {
+      var video = slide.querySelector('video[data-chapters]');
+      var titleEl = slide.querySelector('.hs-caption-title');
+      if (!video || !titleEl) return;
+      var chapters = video.getAttribute('data-chapters').split(';').map(function (c) {
+        var parts = c.split('|');
+        return { start: parseFloat(parts[0]), title: parts[1] };
+      });
+      var shown = 0;
+      video.addEventListener('timeupdate', function () {
+        var idx = 0;
+        chapters.forEach(function (c, i) { if (video.currentTime >= c.start) idx = i; });
+        if (idx === shown) return;
+        shown = idx;
+        titleEl.classList.add('is-swapping');
+        window.setTimeout(function () {
+          titleEl.textContent = chapters[idx].title;
+          titleEl.classList.remove('is-swapping');
+        }, 250);
+      });
+    });
   })();
 
   /* ---------- Sitewide scroll-reveal ---------- */

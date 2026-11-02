@@ -31,7 +31,15 @@
 
     <nav class="main-nav" id="main-nav">
       <a href="/">Home</a>
-      <a href="/about">Who We Are</a>
+      <div class="has-dropdown">
+        <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Who We Are <span class="caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="/about">About Us</a>
+          <a href="/community">Community Outreach</a>
+        </div>
+      </div>
       <div class="has-dropdown">
         <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           Our Wings <span class="caret"></span>
@@ -142,6 +150,7 @@
     <div class="footer-links">
       <h4>Quick Links</h4>
       <a href="/about">Who We Are</a>
+      <a href="/community">Community Outreach</a>
       <a href="/singers">Living Waters Singers</a>
       <a href="/dancers">Living Waters Dancers</a>
       <a href="/gallery">Gallery</a>

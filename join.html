@@ -31,7 +31,15 @@
 
     <nav class="main-nav" id="main-nav">
       <a href="/">Home</a>
-      <a href="/about">Who We Are</a>
+      <div class="has-dropdown">
+        <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Who We Are <span class="caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="/about">About Us</a>
+          <a href="/community">Community Outreach</a>
+        </div>
+      </div>
       <div class="has-dropdown">
         <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           Our Wings <span class="caret"></span>
@@ -230,7 +238,6 @@
       <a href="#aquinas-recap">St. Thomas Aquinas SHS</a>
       <a href="#forces-recap">Forces SHS</a>
       <a href="#diaspora-recap">Diaspora Girls SHS</a>
-      <a href="#goodshepherd-recap">Good Shepherd Outreach</a>
       <a href="#community-recap">Community Outreaches</a>
     </div>
     <div class="recap-heading" id="achimota-recap">
@@ -542,9 +549,9 @@
         <img src="assets/img/recap-diaspora-39.jpg" alt="Diaspora Girls SHS Outreach recap photo 39" loading="lazy">
       </button>
     </div>
-    <div class="recap-heading" id="goodshepherd-recap">
-      <h3>Good Shepherd Outreach</h3>
-      <p>Good Shepherd Outreach &mdash; photo recap.</p>
+    <div class="recap-heading" id="community-recap">
+      <h3>Community Outreaches</h3>
+      <p>Living Waters out in the community, including the Good Shepherd Outreach &mdash; photo recap.</p>
     </div>
     <div class="recap-grid">
       <button class="gallery-item" data-full="assets/img/recap-goodshepherd-01.jpg">
@@ -619,12 +626,6 @@
       <button class="gallery-item" data-full="assets/img/recap-goodshepherd-24.jpg">
         <img src="assets/img/recap-goodshepherd-24.jpg" alt="Good Shepherd Outreach recap photo 24" loading="lazy">
       </button>
-    </div>
-    <div class="recap-heading" id="community-recap">
-      <h3>Community Outreaches</h3>
-      <p>Living Waters out in the community &mdash; photo recap.</p>
-    </div>
-    <div class="recap-grid">
       <button class="gallery-item" data-full="assets/img/recap-forces-09.jpg">
         <img src="assets/img/recap-forces-09.jpg" alt="Community outreach recap photo 9" loading="lazy">
       </button>
@@ -724,6 +725,7 @@
     <div class="footer-links">
       <h4>Quick Links</h4>
       <a href="/about">Who We Are</a>
+      <a href="/community">Community Outreach</a>
       <a href="/singers">Living Waters Singers</a>
       <a href="/dancers">Living Waters Dancers</a>
       <a href="/gallery">Gallery</a>

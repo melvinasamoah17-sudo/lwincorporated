@@ -31,7 +31,15 @@
 
     <nav class="main-nav" id="main-nav">
       <a href="/" aria-current="page">Home</a>
-      <a href="/about">Who We Are</a>
+      <div class="has-dropdown">
+        <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Who We Are <span class="caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="/about">About Us</a>
+          <a href="/community">Community Outreach</a>
+        </div>
+      </div>
       <div class="has-dropdown">
         <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           Our Wings <span class="caret"></span>
@@ -81,15 +89,16 @@
     </div>
     <div class="hs-track">
       <div class="hs-slide is-active">
-        <video class="hs-video" id="heroVideo" data-advance-on-end autoplay muted playsinline preload="auto">
-          <source src="assets/video/New%20Video.mp4" type="video/mp4">
+        <video class="hs-video" id="heroVideo" data-advance-on-end autoplay muted playsinline preload="auto"
+          data-chapters="0|God's Banquet - Premiere Trailer;7.6|The Living Waters Singers - Without Faith (Music Video);21.8|The Living Waters Singers - God's Banquet (Music Video);36|The Living Waters Singers - If There Were Never Any Heaven (Music Video)">
+          <source src="assets/video/music-video-mix.mp4" type="video/mp4">
         </video>
         <button class="hs-sound-toggle" aria-label="Turn sound on" aria-pressed="false">
           <span class="hs-sound-icon">&#128264;</span>
         </button>
         <div class="hs-caption">
           <span class="hs-caption-tag">New Music Video</span>
-          <span class="hs-caption-title">The Living Waters Singers - If There Were Never Any Heaven (Music Video)</span>
+          <span class="hs-caption-title">God's Banquet - Premiere Trailer</span>
         </div>
       </div>
       <div class="hs-slide">
@@ -586,8 +595,8 @@
       </button>
     </div>
     <div class="recap-heading">
-      <h3>Good Shepherd Outreach</h3>
-      <p>Good Shepherd Outreach &mdash; photo recap.</p>
+      <h3>Community Outreaches</h3>
+      <p>Living Waters out in the community, including the Good Shepherd Outreach &mdash; photo recap.</p>
     </div>
     <div class="recap-grid">
       <button class="gallery-item" data-full="assets/img/recap-goodshepherd-01.jpg">
@@ -608,12 +617,6 @@
       <button class="gallery-item" data-full="assets/img/recap-goodshepherd-24.jpg">
         <img src="assets/img/recap-goodshepherd-24.jpg" alt="Good Shepherd Outreach recap photo 24" loading="lazy">
       </button>
-    </div>
-    <div class="recap-heading">
-      <h3>Community Outreaches</h3>
-      <p>Living Waters out in the community &mdash; photo recap.</p>
-    </div>
-    <div class="recap-grid">
       <button class="gallery-item" data-full="assets/img/recap-forces-09.jpg">
         <img src="assets/img/recap-forces-09.jpg" alt="Community outreach recap photo 9" loading="lazy">
       </button>
@@ -664,6 +667,7 @@
     <div class="footer-links">
       <h4>Quick Links</h4>
       <a href="/about">Who We Are</a>
+      <a href="/community">Community Outreach</a>
       <a href="/singers">Living Waters Singers</a>
       <a href="/dancers">Living Waters Dancers</a>
       <a href="/gallery">Gallery</a>
