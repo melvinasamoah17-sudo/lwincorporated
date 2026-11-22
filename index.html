@@ -299,7 +299,24 @@
       <h2>Schools We&rsquo;ve Visited</h2>
     </div>
     <div class="schools-map-wrap">
-      <div id="schoolsMap"></div>
+      <div class="live-map" id="liveMapShell" data-theme="day">
+        <div id="schoolsMap" data-schools="assets/data/accra-schools.json" aria-label="Map of senior high schools in Greater Accra"></div>
+        <div class="map-topbar">
+          <span class="map-live"><span class="map-live-dot" aria-hidden="true"></span>LIVE &middot; Accra <span id="mapClock">--:--:--</span></span>
+          <div class="map-search">
+            <input id="mapSearch" type="search" list="mapSearchList" placeholder="Find a school&hellip;" aria-label="Find a school on the map" autocomplete="off">
+            <datalist id="mapSearchList"></datalist>
+          </div>
+        </div>
+        <div class="map-buttons">
+          <button type="button" id="mapThemeToggle" aria-pressed="false"><span aria-hidden="true">&#127769;</span> Night mode</button>
+          <button type="button" id="mapLocate" aria-pressed="false"><span aria-hidden="true">&#9678;</span> Locate me</button>
+        </div>
+        <div class="map-legend">
+          <span><i class="lg-dot lg-visited" aria-hidden="true"></i> Visited (<b id="cntVisited">17</b>)</span>
+          <span><i class="lg-dot lg-unvisited" aria-hidden="true"></i> Not yet visited (<b id="cntUnvisited">&hellip;</b>)</span>
+        </div>
+      </div>
       <div class="schools-list-card">
         <h3>Schools visited</h3>
         <ul>
@@ -327,43 +344,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script>
-    (function () {
-      var schools = [
-        ["Accra Academy", 5.5715232, -0.2438172],
-        ["Accra Girls SHS", 5.5969834, -0.1929681],
-        ["Accra High School", 5.5675623, -0.2000479],
-        ["Achimota School", 5.6282132, -0.2127761],
-        ["Benkum SHS", 5.9422848, -0.0898632],
-        ["Diaspora Girls SHS", 5.8187043, -0.2667207],
-        ["Forces SHS", 5.592864, -0.161052],
-        ["Ghanata SHS", 5.8858378, -0.1073621],
-        ["Labone SHS", 5.5644744, -0.1712557],
-        ["Mangoase SHS", 5.9432486, -0.2967663],
-        ["Nifa SHS", 6.027203, -0.0780929],
-        ["Nungua SHS", 5.6065, -0.0773],
-        ["St John's Grammar SHS", 5.6386688, -0.2451259],
-        ["St. Thomas Aquinas SHS", 5.5655, -0.1775],
-        ["Tema Technical SHS", 5.6662796, -0.0035298],
-        ["Wesley Grammar SHS", 5.5700027, -0.2605206],
-        ["West Africa SHS (WASS)", 5.70639, -0.17444]
-      ];
-      var mapEl = document.getElementById('schoolsMap');
-      if (!mapEl || typeof L === 'undefined') return;
-      var map = L.map('schoolsMap');
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 18
-      }).addTo(map);
-      var markers = [];
-      schools.forEach(function (s) {
-        var m = L.marker([s[1], s[2]]).addTo(map).bindPopup('<strong>' + s[0] + '</strong>');
-        markers.push(m);
-      });
-      var group = L.featureGroup(markers);
-      map.fitBounds(group.getBounds().pad(0.15));
-    })();
-  </script>
+  <script src="js/schools-map.js?v=1" defer></script>
 
   <section class="gallery" id="gallery">
     <div class="section-head">
